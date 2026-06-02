@@ -1,0 +1,685 @@
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+:root{
+--bg:#080808;--s1:#111;--s2:#181818;--s3:#222;--s4:#2c2c2c;
+--b1:#1e1e1e;--b2:#2a2a2a;--b3:#383838;
+--t1:#f7f3ee;--t2:#a09890;--t3:#5c5650;
+--red:#e8364a;--red2:#ff4d62;--rdim:#1e0a0d;--rborder:#3d1219;
+--grn:#1ec26a;--gdim:#071a0f;--gborder:#0d3a1f;
+--amb:#f0a020;--adim:#1a1000;--aborder:#3a2500;
+--radius:8px;--radiuslg:14px;--radiusxl:20px;--radiusfull:999px;
+--trans:all .15s cubic-bezier(.4,0,.2,1);
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;background:var(--bg);color:var(--t1);overflow-x:hidden;min-height:100vh}
+button,input,select{font-family:inherit;border:none;outline:none;cursor:pointer}
+::-webkit-scrollbar{width:3px;height:3px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--b3);border-radius:3px}
+
+/* NAV */
+.nav{background:rgba(8,8,8,.95);backdrop-filter:blur(24px);border-bottom:1px solid var(--b1);height:58px;position:sticky;top:0;z-index:200}
+.nav-w{max-width:1280px;margin:0 auto;padding:0 24px;height:100%;display:flex;align-items:center;gap:18px}
+.logo{font-size:22px;font-weight:800;letter-spacing:-1px;color:var(--t1);flex-shrink:0}
+.logo b{color:var(--red)}
+.nav-loc{display:flex;align-items:center;gap:7px;padding:7px 13px;border:1px solid var(--b2);border-radius:var(--radius);background:none;color:var(--t2);font-size:13px;font-weight:500;transition:var(--trans);flex-shrink:0}
+.nav-loc:hover{border-color:var(--b3);color:var(--t1)}
+.loc-dot{width:6px;height:6px;background:var(--red);border-radius:50%;flex-shrink:0}
+.nav-sb{flex:1;max-width:400px;display:flex;align-items:center;gap:9px;background:var(--s1);border:1px solid var(--b1);border-radius:var(--radius);padding:0 13px;transition:var(--trans)}
+.nav-sb:focus-within{border-color:var(--b3)}
+.nav-sb svg{width:15px;height:15px;color:var(--t3);flex-shrink:0}
+.nav-sb input{flex:1;background:none;color:var(--t1);font-size:13px;padding:9px 0}
+.nav-sb input::placeholder{color:var(--t3)}
+.nav-end{margin-left:auto;display:flex;align-items:center;gap:8px}
+.nbtn{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:var(--radius);font-size:13px;font-weight:600;transition:var(--trans)}
+.nbtn-ghost{background:none;border:1px solid var(--b2);color:var(--t2)}
+.nbtn-ghost:hover{border-color:var(--b3);color:var(--t1)}
+.nbtn-red{background:var(--red);color:#fff;position:relative}
+.nbtn-red:hover{background:var(--red2)}
+.cbadge{position:absolute;top:-5px;right:-5px;background:#fff;color:var(--red);width:16px;height:16px;border-radius:50%;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center}
+
+/* HERO */
+.hero{background:var(--s1);border-bottom:1px solid var(--b1)}
+.hero-w{max-width:1280px;margin:0 auto;padding:44px 24px 36px;display:grid;grid-template-columns:1fr 260px;gap:48px;align-items:center}
+.hero-chip{display:inline-flex;align-items:center;gap:7px;background:var(--rdim);border:1px solid var(--rborder);border-radius:var(--radiusfull);padding:5px 13px;font-size:12px;font-weight:600;color:var(--red2);margin-bottom:18px}
+.hero-chip-dot{width:6px;height:6px;background:var(--red2);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-size:42px;font-weight:800;line-height:1.08;letter-spacing:-1.5px;color:var(--t1);margin-bottom:12px}
+.hero h1 span{color:var(--red)}
+.hero-sub{font-size:15px;color:var(--t2);line-height:1.65;margin-bottom:28px;max-width:460px}
+.hero-form{display:flex;background:var(--s2);border:1px solid var(--b2);border-radius:var(--radiuslg);overflow:hidden;max-width:520px;transition:var(--trans)}
+.hero-form:focus-within{border-color:var(--b3)}
+.hero-form-loc{display:flex;align-items:center;gap:8px;padding:0 16px;border-right:1px solid var(--b2);flex-shrink:0}
+.hero-form-loc svg{width:15px;height:15px;color:var(--red)}
+.hero-form-loc span{font-size:13px;font-weight:500;color:var(--t2);white-space:nowrap}
+.hero-form input{flex:1;background:none;padding:15px 14px;font-size:14px;color:var(--t1)}
+.hero-form input::placeholder{color:var(--t3)}
+.hero-form-btn{background:var(--red);padding:0 22px;color:#fff;font-size:14px;font-weight:700;transition:var(--trans);display:flex;align-items:center;gap:7px;white-space:nowrap}
+.hero-form-btn:hover{background:var(--red2)}
+.hero-nums{display:flex;gap:32px;margin-top:28px}
+.hero-num strong{display:block;font-size:28px;font-weight:800;letter-spacing:-1px;color:var(--t1)}
+.hero-num span{font-size:11px;color:var(--t3);font-weight:500;letter-spacing:.5px;text-transform:uppercase}
+.hero-cards{display:flex;flex-direction:column;gap:9px}
+.hc{background:var(--s2);border:1px solid var(--b1);border-radius:var(--radiuslg);padding:13px 16px;display:flex;align-items:center;gap:13px;transition:var(--trans)}
+.hc:hover{border-color:var(--b2);transform:translateX(3px)}
+.hc-icon{width:42px;height:42px;background:var(--s3);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.hc-name{font-size:13px;font-weight:600;color:var(--t1);margin-bottom:2px}
+.hc-sub{font-size:11px;color:var(--t3)}
+.hc-rating{margin-left:auto;background:var(--gdim);border:1px solid var(--gborder);border-radius:var(--radiusfull);padding:3px 8px;font-size:11px;font-weight:700;color:var(--grn);flex-shrink:0}
+
+/* OFFERS BAR */
+.offers-bar{border-bottom:1px solid var(--b1);background:var(--s1)}
+.offers-scroll{max-width:1280px;margin:0 auto;padding:12px 24px;display:flex;gap:9px;overflow-x:auto;scrollbar-width:none}
+.offers-scroll::-webkit-scrollbar{display:none}
+.oc{flex-shrink:0;display:flex;align-items:center;gap:10px;background:var(--s2);border:1px solid var(--b1);border-radius:var(--radiuslg);padding:10px 15px;transition:var(--trans);cursor:pointer}
+.oc:hover{border-color:var(--b2)}
+.oc-icon{width:32px;height:32px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.oc-icon.r{background:var(--rdim)}
+.oc-icon.g{background:var(--gdim)}
+.oc-icon.a{background:var(--adim)}
+.oc-title{font-size:13px;font-weight:700;color:var(--t1)}
+.oc-sub{font-size:11px;color:var(--t3);margin-top:1px}
+.oc-code{font-size:11px;font-weight:700;color:var(--red);background:var(--rdim);border:1px dashed var(--rborder);border-radius:4px;padding:2px 7px;letter-spacing:.5px;margin-left:4px;flex-shrink:0}
+
+/* SECTION */
+.sec{max-width:1280px;margin:0 auto;padding:32px 24px 0}
+.sec-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.sec-title{font-size:20px;font-weight:800;letter-spacing:-.5px;color:var(--t1)}
+.sec-title em{color:var(--red);font-style:normal}
+.sec-more{font-size:13px;color:var(--t3);cursor:pointer;transition:var(--trans)}
+.sec-more:hover{color:var(--red)}
+
+/* CATEGORIES */
+.cats{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.cats::-webkit-scrollbar{display:none}
+.cat{display:flex;align-items:center;gap:8px;padding:9px 16px;border-radius:var(--radiusfull);border:1px solid var(--b2);background:none;color:var(--t2);font-size:13px;font-weight:500;transition:var(--trans);flex-shrink:0;white-space:nowrap}
+.cat:hover{border-color:var(--b3);color:var(--t1)}
+.cat.on{background:var(--red);border-color:var(--red);color:#fff}
+.cat-em{font-size:15px}
+
+/* FILTERS */
+.frow{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding:16px 0 0;align-items:center}
+.frow::-webkit-scrollbar{display:none}
+.flabel{font-size:11px;font-weight:600;color:var(--t3);letter-spacing:.6px;text-transform:uppercase;flex-shrink:0;margin-right:2px}
+.fbtn{display:flex;align-items:center;gap:5px;padding:7px 13px;border-radius:var(--radiusfull);border:1px solid var(--b2);background:none;color:var(--t2);font-size:12px;font-weight:500;transition:var(--trans);flex-shrink:0;white-space:nowrap}
+.fbtn:hover{border-color:var(--b3);color:var(--t1)}
+.fbtn.on{border-color:var(--red);color:var(--red);background:var(--rdim)}
+.fsort{padding:7px 12px;background:var(--s2);border:1px solid var(--b2);border-radius:var(--radiusfull);color:var(--t2);font-size:12px;cursor:pointer;margin-left:auto;flex-shrink:0}
+.fsort option{background:var(--s2)}
+
+/* GRID */
+.rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:14px;padding:18px 0 40px}
+.rc{background:var(--s1);border:1px solid var(--b1);border-radius:var(--radiusxl);overflow:hidden;cursor:pointer;transition:var(--trans)}
+.rc:hover{border-color:var(--b2);transform:translateY(-2px)}
+.rc-img{height:152px;background:var(--s2);position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.rc-em{font-size:68px;transition:transform .35s}
+.rc:hover .rc-em{transform:scale(1.06)}
+.rc-tl{position:absolute;top:10px;left:10px;display:flex;gap:5px;flex-wrap:wrap}
+.rbadge{padding:4px 8px;border-radius:5px;font-size:11px;font-weight:700}
+.rbadge.feat{background:#1a1200;color:var(--amb);border:1px solid var(--aborder)}
+.rbadge.veg{background:var(--gdim);color:var(--grn);border:1px solid var(--gborder)}
+.rc-heart{position:absolute;top:10px;right:10px;width:30px;height:30px;border-radius:50%;background:rgba(8,8,8,.7);border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;transition:var(--trans)}
+.rc-heart:hover,.rc-heart.on{background:var(--rdim);border-color:var(--red)}
+.rc-heart svg{width:14px;height:14px;color:var(--t2);transition:var(--trans)}
+.rc-heart.on svg{color:var(--red);fill:var(--red)}
+.rc-offer{position:absolute;bottom:0;left:0;right:0;background:rgba(232,54,74,.88);padding:5px 11px;font-size:12px;font-weight:700;color:#fff}
+.rc-body{padding:14px 16px}
+.rc-name{font-size:15px;font-weight:700;color:var(--t1);margin-bottom:2px;letter-spacing:-.2px}
+.rc-cuis{font-size:12px;color:var(--t3);margin-bottom:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rc-meta{display:flex;border-top:1px solid var(--b1);padding-top:10px}
+.rc-mi{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px}
+.rc-mi+.rc-mi{border-left:1px solid var(--b1)}
+.rc-mv{font-size:13px;font-weight:700;color:var(--t1)}
+.rc-mv.g{color:var(--grn)}
+.rc-ml{font-size:10px;color:var(--t3)}
+
+/* RESTAURANT VIEW */
+.rv{min-height:100vh}
+.rv-hero{height:200px;background:var(--s2);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border-bottom:1px solid var(--b1)}
+.rv-hero-bg{position:absolute;font-size:180px;opacity:.07}
+.rv-hero-em{position:relative;font-size:72px}
+.rv-info{background:var(--s1);border-bottom:1px solid var(--b1);padding:20px 24px}
+.rv-info-w{max-width:1040px;margin:0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.rv-name{font-size:28px;font-weight:800;letter-spacing:-.8px;color:var(--t1);margin-bottom:3px}
+.rv-cuis{font-size:14px;color:var(--t2);margin-bottom:13px}
+.rv-badges{display:flex;gap:7px;flex-wrap:wrap}
+.rvb{display:flex;align-items:center;gap:6px;padding:6px 12px;border:1px solid var(--b2);border-radius:var(--radius);font-size:12px;font-weight:500;color:var(--t2)}
+.rvb.g{background:var(--gdim);border-color:var(--gborder);color:var(--grn)}
+.rv-offer-pill{background:var(--rdim);border:1px solid var(--rborder);border-radius:var(--radiusfull);padding:6px 14px;font-size:13px;font-weight:700;color:var(--red2)}
+
+/* MENU */
+.menu-layout{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:190px 1fr 300px;gap:0;min-height:60vh}
+.menu-nav{border-right:1px solid var(--b1);padding:16px 0;position:sticky;top:58px;max-height:calc(100vh - 58px);overflow-y:auto}
+.mni{padding:9px 18px;font-size:13px;color:var(--t3);cursor:pointer;transition:var(--trans);border-left:2px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mni:hover{color:var(--t2);background:var(--s1)}
+.mni.on{color:var(--red);border-left-color:var(--red);background:var(--rdim);font-weight:600}
+.menu-body{padding:20px 24px;border-right:1px solid var(--b1)}
+.mcat-title{font-size:17px;font-weight:800;letter-spacing:-.3px;color:var(--t1);margin-bottom:2px}
+.mcat-sub{font-size:12px;color:var(--t3);margin-bottom:16px}
+.mcat{margin-bottom:28px}
+.mi{background:var(--s1);border:1px solid var(--b1);border-radius:var(--radiuslg);padding:14px;display:flex;gap:13px;margin-bottom:9px;transition:var(--trans)}
+.mi:hover{border-color:var(--b2)}
+.mi-body{flex:1;min-width:0}
+.mi-flags{display:flex;align-items:center;gap:6px;margin-bottom:5px}
+.vd{width:13px;height:13px;border-radius:3px;border:2px solid;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.vd::after{content:'';width:5px;height:5px;border-radius:50%;display:block}
+.vd.v{border-color:var(--grn)}.vd.v::after{background:var(--grn)}
+.vd.nv{border-color:#e06040}.vd.nv::after{background:#e06040}
+.best{font-size:11px;font-weight:700;color:var(--amb);background:var(--adim);border:1px solid var(--aborder);padding:2px 7px;border-radius:var(--radiusfull)}
+.spicy{font-size:10px;color:#ff6040;background:#1a0a06;border:1px solid #3a1508;padding:2px 7px;border-radius:var(--radiusfull);font-weight:600}
+.mi-name{font-size:14px;font-weight:700;color:var(--t1);margin-bottom:3px}
+.mi-desc{font-size:12px;color:var(--t3);line-height:1.55;margin-bottom:9px}
+.mi-price{font-size:15px;font-weight:800;color:var(--t1);letter-spacing:-.3px}
+.mi-img{width:90px;height:90px;border-radius:var(--radius);background:var(--s2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:40px;border:1px solid var(--b1)}
+.qadd{margin-top:9px;padding:6px 15px;background:var(--rdim);border:1px solid var(--rborder);border-radius:var(--radius);color:var(--red2);font-size:12px;font-weight:700;cursor:pointer;transition:var(--trans)}
+.qadd:hover{background:var(--red);border-color:var(--red);color:#fff}
+.qrow{display:inline-flex;align-items:center;margin-top:9px;background:var(--s2);border:1px solid var(--b2);border-radius:var(--radius);overflow:hidden}
+.qb{width:30px;height:30px;background:none;color:var(--t2);font-size:17px;font-weight:500;cursor:pointer;transition:var(--trans);display:flex;align-items:center;justify-content:center}
+.qb:hover{background:var(--s3);color:var(--t1)}
+.qb.p:hover{color:var(--red)}
+.qn{min-width:28px;text-align:center;font-size:13px;font-weight:700;color:var(--t1)}
+
+/* CART PANEL */
+.cart-panel{border-left:1px solid var(--b1);position:sticky;top:58px;max-height:calc(100vh - 58px);overflow-y:auto;display:flex;flex-direction:column}
+.cp-head{padding:18px;border-bottom:1px solid var(--b1)}
+.cp-title{font-size:15px;font-weight:700;color:var(--t1)}
+.cp-rest{font-size:11px;color:var(--t3);margin-top:2px}
+.cp-empty{padding:40px 18px;text-align:center;color:var(--t3)}
+.cp-em-icon{font-size:44px;margin-bottom:10px;opacity:.4}
+.cp-items{flex:1;padding:0 18px}
+.ci{display:flex;align-items:center;gap:9px;padding:11px 0;border-bottom:1px solid var(--b1)}
+.ci-em{font-size:22px;width:38px;height:38px;background:var(--s2);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--b1)}
+.ci-name{flex:1;font-size:12px;font-weight:600;color:var(--t1);line-height:1.4}
+.ci-price{font-size:12px;font-weight:700;color:var(--t1);flex-shrink:0}
+.cp-foot{padding:16px 18px;border-top:1px solid var(--b1);margin-top:auto}
+.cp-coup{display:flex;gap:7px;margin-bottom:13px}
+.cp-coup input{flex:1;background:var(--s2);border:1px solid var(--b2);border-radius:var(--radius);padding:8px 11px;color:var(--t1);font-size:12px}
+.cp-coup input::placeholder{color:var(--t3)}
+.cp-coup-btn{padding:8px 12px;background:var(--s3);border:1px solid var(--b2);border-radius:var(--radius);color:var(--t2);font-size:12px;font-weight:600;cursor:pointer;transition:var(--trans);white-space:nowrap}
+.cp-coup-btn:hover{border-color:var(--red);color:var(--red)}
+.bline{display:flex;justify-content:space-between;font-size:12px;color:var(--t3);margin-bottom:6px}
+.bline.bold{font-size:14px;font-weight:700;color:var(--t1);padding-top:9px;margin-top:5px;border-top:1px solid var(--b1)}
+.bline .free{color:var(--grn);font-weight:700}
+.bline .disc{color:var(--grn)}
+.pay-btn{width:100%;margin-top:12px;padding:14px;background:var(--red);border:none;border-radius:var(--radiuslg);color:#fff;font-size:14px;font-weight:800;cursor:pointer;transition:var(--trans);display:flex;align-items:center;justify-content:space-between;letter-spacing:-.2px}
+.pay-btn:hover{background:var(--red2)}
+.pay-btn:active{transform:scale(.98)}
+
+/* FLOAT BAR */
+.fbar{background:var(--s2);border:1px solid var(--b2);border-radius:var(--radiusxl);padding:13px 18px;margin:14px 24px 0;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:var(--trans)}
+.fbar:hover{border-color:var(--red)}
+.fbar-l{display:flex;align-items:center;gap:10px}
+.fbar-ct{background:var(--red);color:#fff;width:22px;height:22px;border-radius:50%;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.fbar-label{font-size:13px;font-weight:700;color:var(--t1)}
+.fbar-r{font-size:14px;font-weight:800;color:var(--red2)}
+
+/* SUCCESS */
+.succ{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px}
+.succ-card{background:var(--s1);border:1px solid var(--b1);border-radius:24px;padding:44px;max-width:440px;width:100%;text-align:center}
+.succ-ring{width:76px;height:76px;border-radius:50%;background:var(--gdim);border:2px solid var(--grn);display:flex;align-items:center;justify-content:center;margin:0 auto 22px}
+.succ-ring svg{width:34px;height:34px;color:var(--grn)}
+.succ-title{font-size:26px;font-weight:800;letter-spacing:-.8px;color:var(--t1);margin-bottom:7px}
+.succ-sub{font-size:14px;color:var(--t3);line-height:1.6;margin-bottom:28px}
+.track-wrap{background:var(--s2);border:1px solid var(--b1);border-radius:var(--radiuslg);padding:18px;margin-bottom:22px;text-align:left}
+.track-lbl{font-size:11px;font-weight:600;color:var(--t3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:14px}
+.tstep{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.tstep:last-child{margin-bottom:0}
+.ticon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ticon.done{background:var(--gdim);border:1px solid var(--gborder)}
+.ticon.done svg{width:14px;height:14px;color:var(--grn)}
+.ticon.active{background:var(--adim);border:1px solid var(--aborder)}
+.ticon.active-dot{width:8px;height:8px;background:var(--amb);border-radius:50%}
+.ticon.pend{background:var(--s3);border:1px solid var(--b2)}
+.ticon.pend-dot{width:7px;height:7px;background:var(--b3);border-radius:50%}
+.ttext{font-size:13px;font-weight:600}
+.ttext.done{color:var(--grn)}.ttext.active{color:var(--amb)}.ttext.pend{color:var(--t3)}
+.teta{font-size:11px;color:var(--t3);margin-top:1px}
+.back-btn{width:100%;padding:12px;background:none;border:1px solid var(--b2);border-radius:var(--radiuslg);color:var(--t2);font-size:13px;font-weight:600;cursor:pointer;transition:var(--trans)}
+.back-btn:hover{border-color:var(--red);color:var(--red)}
+
+/* TOAST */
+.toast-host{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:999;pointer-events:none}
+.toast{background:var(--s3);border:1px solid var(--b3);color:var(--t1);padding:10px 16px;border-radius:var(--radiusfull);font-size:13px;font-weight:500;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.tg-dot{width:7px;height:7px;border-radius:50%;background:var(--grn);flex-shrink:0}
+
+/* EMPTY */
+.empty{text-align:center;padding:70px 24px}
+.empty-icon{font-size:52px;opacity:.2;margin-bottom:14px}
+.empty-h{font-size:18px;font-weight:700;color:var(--t2);margin-bottom:6px}
+.empty-p{font-size:13px;color:var(--t3)}
+</style>
+
+<div id="app"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script>
+const {useState,useMemo,useCallback}=React;
+const e=React.createElement;
+
+const IC={
+  search:({s=16})=>e('svg',{width:s,height:s,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},e('circle',{cx:11,cy:11,r:8}),e('path',{d:'m21 21-4.35-4.35'})),
+  pin:({s=15})=>e('svg',{width:s,height:s,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},e('path',{d:'M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z'}),e('circle',{cx:12,cy:10,r:3})),
+  chev:({s=12})=>e('svg',{width:s,height:s,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:2.5,strokeLinecap:'round',strokeLinejoin:'round'},e('path',{d:'m6 9 6 6 6-6'})),
+  heart:({s=14,f})=>e('svg',{width:s,height:s,viewBox:'0 0 24 24',fill:f?'currentColor':'none',stroke:'currentColor',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},e('path',{d:'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'})),
+  bag:({s=15})=>e('svg',{width:s,height:s,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},e('path',{d:'M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z'}),e('line',{x1:3,y1:6,x2:21,y2:6}),e('path',{d:'M16 10a4 4 0 0 1-8 0'})),
+  check:({s=16})=>e('svg',{width:s,height:s,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:2.5,strokeLinecap:'round',strokeLinejoin:'round'},e('polyline',{points:'20 6 9 17 4 12'})),
+  arrow:({s=14})=>e('svg',{width:s,height:s,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},e('line',{x1:5,y1:12,x2:19,y2:12}),e('polyline',{points:'12 5 19 12 12 19'})),
+  user:({s=14})=>e('svg',{width:s,height:s,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},e('path',{d:'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'}),e('circle',{cx:12,cy:7,r:4})),
+  star:({s=12})=>e('svg',{width:s,height:s,viewBox:'0 0 24 24',fill:'currentColor',stroke:'none'},e('polygon',{points:'12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2'})),
+  tag:({s=13})=>e('svg',{width:s,height:s,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},e('path',{d:'M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z'}),e('line',{x1:7,y1:7,x2:'7.01',y2:7})),
+  clock:({s=13})=>e('svg',{width:s,height:s,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},e('circle',{cx:12,cy:12,r:10}),e('polyline',{points:'12 6 12 12 16 14'})),
+  leaf:({s=13})=>e('svg',{width:s,height:s,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},e('path',{d:'M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z'}),e('path',{d:'M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12'})),
+  truck:({s=13})=>e('svg',{width:s,height:s,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},e('rect',{x:1,y:3,width:15,height:13}),e('polygon',{points:'16 8 20 8 23 11 23 16 16 16 16 8'}),e('circle',{cx:'5.5',cy:'18.5',r:'2.5'}),e('circle',{cx:'18.5',cy:'18.5',r:'2.5'})),
+  rupee:({s=13})=>e('svg',{width:s,height:s,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},e('path',{d:'M6 3h12M6 8h12M6 13l8 8M6 8a4 4 0 0 0 0 8'})),
+};
+
+const RESTS=[
+  {id:1,name:'Spice Garden',cuis:'North Indian · Mughlai · Biryani',r:4.5,t:'25–30',c:400,offer:'50% OFF upto ₹100',veg:false,feat:true,em:'🍛',cat:'biryani',menu:{
+    'Recommended':[
+      {id:101,n:'Chicken Dum Biryani',d:'Slow-cooked aromatic basmati with tender chicken, saffron & caramelised onion',p:280,em:'🍗',veg:false,best:true,spicy:false},
+      {id:102,n:'Paneer Tikka',d:'Cottage cheese marinated overnight, charred in clay tandoor with mint chutney',p:220,em:'🧀',veg:true,best:true,spicy:false},
+      {id:103,n:'Dal Makhani',d:'24-hour slow-cooked black lentils in rich buttery tomato reduction',p:180,em:'🫕',veg:true,best:false,spicy:false},
+    ],
+    'Main Course':[
+      {id:104,n:'Butter Chicken',d:'Succulent chicken in our signature 48-hour marinated tomato-butter gravy',p:320,em:'🍗',veg:false,best:false,spicy:false},
+      {id:105,n:'Palak Paneer',d:'Fresh cottage cheese in smooth, spiced spinach reduction with whole spices',p:240,em:'🥬',veg:true,best:false,spicy:false},
+      {id:106,n:'Mutton Rogan Josh',d:'Slow-braised mutton in bold Kashmiri aromatic sauce',p:380,em:'🍖',veg:false,best:false,spicy:true},
+    ],
+    'Breads & Rice':[
+      {id:107,n:'Garlic Naan',d:'Pillow-soft leavened bread with roasted garlic butter, baked in clay tandoor',p:60,em:'🫓',veg:true,best:false,spicy:false},
+      {id:108,n:'Laccha Paratha',d:'Multi-layered flaky wheat bread, charred edges, drizzled with desi ghee',p:70,em:'🫓',veg:true,best:false,spicy:false},
+    ],
+  }},
+  {id:2,name:'Pizza Paradise',cuis:'Artisan Pizza · Italian · Pasta',r:4.3,t:'30–40',c:600,offer:'30% OFF on ₹399+',veg:false,feat:false,em:'🍕',cat:'pizza',menu:{
+    'Signature Pizzas':[
+      {id:201,n:'Neapolitan Margherita',d:'San Marzano tomato, buffalo mozzarella DOP, fresh basil, cold-press EVOO',p:299,em:'🍕',veg:true,best:true,spicy:false},
+      {id:202,n:'Double Pepperoni',d:'Smoked mozzarella, cup-and-char pepperoni, chilli honey drizzle',p:399,em:'🍕',veg:false,best:true,spicy:true},
+      {id:203,n:'Truffle Wild Mushroom',d:'Portobello & shiitake, black truffle oil, taleggio, fresh thyme',p:479,em:'🍄',veg:true,best:false,spicy:false},
+    ],
+    'Pasta':[
+      {id:204,n:'Cacio e Pepe',d:'House-made tonnarelli, Pecorino Romano, Parmigiano, cracked black pepper',p:279,em:'🍝',veg:true,best:false,spicy:false},
+      {id:205,n:'Spaghetti Arrabbiata',d:'San Marzano tomato, guanciale, Calabrian chilli, fresh parsley',p:249,em:'🍝',veg:false,best:false,spicy:true},
+    ],
+    'Sides':[
+      {id:206,n:'Rosemary Focaccia',d:'Oven-baked with rosemary, Maldon salt, extra virgin olive oil',p:99,em:'🥖',veg:true,best:false,spicy:false},
+      {id:207,n:'Buffalo Wings',d:'Crispy twice-fried wings, house buffalo sauce, gorgonzola dip',p:249,em:'🍗',veg:false,best:false,spicy:true},
+    ],
+  }},
+  {id:3,name:'The Burger Lab',cuis:'Gourmet Burgers · Smash · Shakes',r:4.6,t:'20–25',c:350,offer:'Free Fries on ₹299+',veg:false,feat:true,em:'🍔',cat:'burger',menu:{
+    'Signature Burgers':[
+      {id:301,n:'OG Double Smash',d:'Two 3oz beef smash patties, American cheese, special sauce, brioche bun',p:229,em:'🍔',veg:false,best:true,spicy:false},
+      {id:302,n:'Nashville Hot Chicken',d:'Twice-fried thigh, Nashville hot paste, dill pickles, comeback slaw',p:199,em:'🍗',veg:false,best:true,spicy:true},
+      {id:303,n:'Black Bean Umami',d:'Smoky black bean patty, chipotle mayo, avocado, pickled jalapeños',p:219,em:'🫘',veg:true,best:false,spicy:false},
+    ],
+    'Sides':[
+      {id:304,n:'Truffle Parm Fries',d:'House-cut fries, black truffle oil, Parmigiano, chives',p:169,em:'🍟',veg:true,best:false,spicy:false},
+      {id:305,n:'Onion Rings',d:'Thick-cut rings in seasoned buttermilk batter, ranch dip',p:129,em:'🧅',veg:true,best:false,spicy:false},
+    ],
+    'Shakes':[
+      {id:306,n:'Oreo Overload Shake',d:'Thick vanilla base, double Oreo, whipped cream, crumble garnish',p:149,em:'🥤',veg:true,best:false,spicy:false},
+      {id:307,n:'Salted Caramel Shake',d:'House caramel sauce, vanilla bean ice cream, Maldon sea salt',p:159,em:'🥛',veg:true,best:false,spicy:false},
+    ],
+  }},
+  {id:4,name:'Dragon Palace',cuis:'Cantonese · Dim Sum · Pan-Asian',r:4.2,t:'35–45',c:550,offer:'20% OFF',veg:false,feat:false,em:'🥡',cat:'chinese',menu:{
+    'Dim Sum':[
+      {id:401,n:'Char Siu Bao',d:'Fluffy steamed buns, Ibérico BBQ pork, hoisin lacquer',p:199,em:'🥟',veg:false,best:true,spicy:false},
+      {id:402,n:'Har Gow',d:'Translucent rice-skin dumplings stuffed with whole prawns & bamboo',p:229,em:'🦐',veg:false,best:false,spicy:false},
+      {id:403,n:'Truffle Siu Mai',d:'Pork & prawn dumpling, black truffle, tobiko roe',p:249,em:'🥟',veg:false,best:false,spicy:false},
+    ],
+    'Mains':[
+      {id:404,n:'Kung Pao Chicken',d:'Wok-tossed chicken, toasted Sichuan peppercorn, cashew, dried chilli',p:249,em:'🍗',veg:false,best:false,spicy:true},
+      {id:405,n:'Thai Green Curry',d:'Coconut milk, galangal, lemongrass, kaffir lime, jasmine rice',p:269,em:'🍲',veg:true,best:false,spicy:false},
+      {id:406,n:'Schezwan Noodles',d:'Hand-pulled noodles, fiery Schezwan, crispy tofu, seasonal vegetables',p:199,em:'🍜',veg:true,best:false,spicy:true},
+    ],
+  }},
+  {id:5,name:'Sweet Dreams',cuis:'Artisan Patisserie · Ice Cream · Cakes',r:4.7,t:'15–20',c:300,offer:null,veg:true,feat:false,em:'🍰',cat:'desserts',menu:{
+    'Signature Cakes':[
+      {id:501,n:'72% Chocolate Truffle',d:'Dark Belgian ganache, cocoa sponge, gold leaf, caramelised cocoa nibs',p:299,em:'🎂',veg:true,best:true,spicy:false},
+      {id:502,n:'Mango Passion Entremet',d:'Alphonso mango mousse, passion fruit insert, mirror glaze',p:319,em:'🥭',veg:true,best:false,spicy:false},
+    ],
+    'Waffles & Ice Cream':[
+      {id:503,n:'Liège Waffle',d:'Authentic pearl-sugar crust, 2 scoops artisan ice cream, fruit compote',p:199,em:'🧇',veg:true,best:true,spicy:false},
+      {id:504,n:'Sundae Royale',d:'Three scoops, hot fudge, Chantilly, candied walnuts, cocktail cherry',p:229,em:'🍨',veg:true,best:false,spicy:false},
+    ],
+  }},
+  {id:6,name:'Verdure Bowl',cuis:'Plant-Based · Raw · Cold Press',r:4.4,t:'20–28',c:450,offer:'15% OFF on ₹499+',veg:true,feat:false,em:'🥗',cat:'healthy',menu:{
+    'Power Bowls':[
+      {id:601,n:'Quinoa Power Bowl',d:'Tri-color quinoa, roasted sweet potato, avocado, hemp seeds, lemon tahini',p:349,em:'🥗',veg:true,best:true,spicy:false},
+      {id:602,n:'Açaí Paradise',d:'Wild-harvested açaí, house granola, fresh banana, mixed berries',p:299,em:'🫐',veg:true,best:false,spicy:false},
+    ],
+    'Cold Press':[
+      {id:603,n:'Green Detox',d:'Cold-pressed spinach, green apple, cucumber, ginger, lemon, coconut water',p:199,em:'🥤',veg:true,best:false,spicy:false},
+      {id:604,n:'Golden Immunity',d:'Turmeric, carrot, orange, black pepper, activated charcoal',p:219,em:'🍊',veg:true,best:false,spicy:false},
+    ],
+  }},
+];
+
+const CATS=[
+  {id:'all',l:'All',em:'🍽️'},{id:'biryani',l:'Biryani',em:'🍛'},{id:'pizza',l:'Pizza',em:'🍕'},
+  {id:'burger',l:'Burgers',em:'🍔'},{id:'chinese',l:'Chinese',em:'🥢'},{id:'desserts',l:'Desserts',em:'🍰'},
+  {id:'healthy',l:'Healthy',em:'🥗'},{id:'cafe',l:'Café',em:'☕'},
+];
+
+const OFFERS=[
+  {em:'🏷️',cl:'r',t:'50% OFF',s:'Upto ₹100 · First order',c:'WELCOME50'},
+  {em:'🚚',cl:'g',t:'Free Delivery',s:'Orders above ₹199',c:'FREEDEL'},
+  {em:'⚡',cl:'a',t:'₹50 Off',s:'Use code FOOD50',c:'FOOD50'},
+  {em:'🌙',cl:'r',t:'Night Bites',s:'20% off after 10 PM',c:'NIGHT20'},
+  {em:'🎯',cl:'a',t:'Weekend Deal',s:'15% off Sat–Sun',c:'WKND15'},
+];
+
+function App(){
+  const [view,setView]=useState('home');
+  const [selR,setSelR]=useState(null);
+  const [cart,setCart]=useState({});
+  const [cRid,setCRid]=useState(null);
+  const [cat,setCat]=useState('all');
+  const [fil,setFil]=useState({veg:false,top:false,fast:false,offer:false});
+  const [sort,setSort]=useState('rel');
+  const [q,setQ]=useState('');
+  const [favs,setFavs]=useState({});
+  const [toast,setToast]=useState(null);
+  const [mcat,setMcat]=useState(0);
+  const [coup,setCoup]=useState('');
+  const [coupon,setCoupon]=useState(false);
+  const [showCP,setShowCP]=useState(true);
+
+  const cnt=Object.values(cart).reduce((a,b)=>a+b,0);
+  const total=useMemo(()=>{
+    if(!cRid)return 0;
+    const r=RESTS.find(x=>x.id===cRid);
+    if(!r)return 0;
+    return Object.values(r.menu).flat().reduce((s,i)=>s+(cart[i.id]||0)*i.p,0);
+  },[cart,cRid]);
+
+  const toast_=t=>{setToast(t);setTimeout(()=>setToast(null),2200)};
+  const addItem=(item,rid)=>{
+    if(cRid&&cRid!==rid){if(!confirm('Clear cart from another place?'))return;setCart({});}
+    setCRid(rid);
+    setCart(p=>({...p,[item.id]:(p[item.id]||0)+1}));
+    toast_('Added: '+item.n);
+  };
+  const remItem=item=>setCart(p=>{const n={...p};n[item.id]>1?n[item.id]--:delete n[item.id];return n});
+  const togFav=(id,ev)=>{ev.stopPropagation();setFavs(p=>({...p,[id]:!p[id]}));toast_(favs[id]?'Removed from favourites':'Saved to favourites')};
+
+  const del=total>500?0:49;
+  const tax=Math.round(total*.05);
+  const disc=coupon?Math.round(total*.1):0;
+  const grand=total+del+tax-disc;
+
+  const filt=RESTS.filter(r=>{
+    if(cat!=='all'&&r.cat!==cat)return false;
+    if(fil.veg&&!r.veg)return false;
+    if(fil.top&&r.r<4.5)return false;
+    if(fil.fast&&parseInt(r.t)>25)return false;
+    if(fil.offer&&!r.offer)return false;
+    if(q&&!r.name.toLowerCase().includes(q.toLowerCase())&&!r.cuis.toLowerCase().includes(q.toLowerCase()))return false;
+    return true;
+  }).sort((a,b)=>sort==='rating'?b.r-a.r:sort==='fast'?parseInt(a.t)-parseInt(b.t):sort==='cost'?a.c-b.c:0);
+
+  if(view==='success')return e('div',{className:'succ'},
+    e('div',{className:'succ-card'},
+      e('div',{className:'succ-ring'},e(IC.check,{s:32})),
+      e('div',{className:'succ-title'},'Order confirmed!'),
+      e('div',{className:'succ-sub'},'Estimated delivery in 30–40 minutes.'),
+      e('div',{className:'track-wrap'},
+        e('div',{className:'track-lbl'},'Live tracking'),
+        [
+          {s:'done',l:'Order placed',eta:'Just now'},
+          {s:'done',l:'Restaurant confirmed',eta:'2 min ago'},
+          {s:'active',l:'Being prepared',eta:'Est. 15 min'},
+          {s:'pend',l:'Out for delivery',eta:'Est. 12 min'},
+          {s:'pend',l:'Delivered',eta:'Est. 37 min'},
+        ].map((step,i)=>e('div',{className:'tstep',key:i},
+          e('div',{className:`ticon ${step.s}`},
+            step.s==='done'?e(IC.check,{s:14}):e('div',{className:step.s==='active'?'ticon.active-dot active-dot':'ticon.pend-dot pend-dot',style:{width:step.s==='active'?8:7,height:step.s==='active'?8:7,borderRadius:'50%',background:step.s==='active'?'var(--amb)':'var(--b3)'}})
+          ),
+          e('div',null,e('div',{className:`ttext ${step.s}`},step.l),e('div',{className:'teta'},step.eta))
+        ))
+      ),
+      e('button',{className:'back-btn',onClick:()=>{setView('home');setCart({});setCRid(null);setCoupon(false)}},'← Back to home')
+    )
+  );
+
+  if(view==='rest'&&selR){
+    const secs=Object.keys(selR.menu);
+    const cRest=RESTS.find(r=>r.id===cRid);
+    return e('div',{className:'rv'},
+      e('div',{className:'nav'},
+        e('div',{className:'nav-w'},
+          e('div',{className:'logo'},e('b',null,'zoma'),'to'),
+          e('button',{className:'nbtn nbtn-ghost',onClick:()=>setView('home')},
+            e('svg',{width:14,height:14,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},e('line',{x1:19,y1:12,x2:5,y2:12}),e('polyline',{points:'12 19 5 12 12 5'})),
+            ' Back'
+          ),
+          cnt>0&&e('button',{className:'nbtn nbtn-red',style:{marginLeft:'auto'},onClick:()=>setShowCP(p=>!p)},
+            e(IC.bag,{s:14}),' Cart ',
+            e('span',{className:'cbadge'},cnt)
+          )
+        )
+      ),
+      e('div',{className:'rv-hero'},
+        e('div',{className:'rv-hero-bg'},selR.em),
+        e('div',{className:'rv-hero-em'},selR.em)
+      ),
+      e('div',{className:'rv-info'},
+        e('div',{className:'rv-info-w'},
+          e('div',null,
+            e('div',{className:'rv-name'},selR.name),
+            e('div',{className:'rv-cuis'},selR.cuis),
+            e('div',{className:'rv-badges'},
+              e('div',{className:'rvb g'},e(IC.star,{s:12}),' ',selR.r),
+              e('div',{className:'rvb'},e(IC.clock,{s:12}),' ',selR.t,' min'),
+              e('div',{className:'rvb'},e(IC.rupee,{s:12}),' ₹',selR.c,' for two'),
+              selR.veg&&e('div',{className:'rvb',style:{background:'var(--gdim)',borderColor:'var(--gborder)',color:'var(--grn)'}},e(IC.leaf,{s:12}),' Pure Veg'),
+            )
+          ),
+          selR.offer&&e('div',{className:'rv-offer-pill'},e(IC.tag,{s:12}),' ',selR.offer)
+        )
+      ),
+      e('div',{className:'menu-layout'},
+        e('div',{className:'menu-nav'},
+          secs.map((s,i)=>e('div',{key:s,className:`mni ${mcat===i?'on':''}`,onClick:()=>setMcat(i)},
+            s,' ',e('span',{style:{fontSize:10,color:'var(--t3)'}},'(',selR.menu[s].length,')')
+          ))
+        ),
+        e('div',{className:'menu-body'},
+          secs.map((s,si)=>e('div',{key:s,className:'mcat',style:{display:mcat===si?'block':'none'}},
+            e('div',{className:'mcat-title'},s),
+            e('div',{className:'mcat-sub'},selR.menu[s].length,' items'),
+            selR.menu[s].map(item=>e('div',{className:'mi',key:item.id},
+              e('div',{className:'mi-body'},
+                e('div',{className:'mi-flags'},
+                  e('div',{className:`vd ${item.veg?'v':'nv'}`}),
+                  item.best&&e('span',{className:'best'},'Bestseller'),
+                  item.spicy&&e('span',{className:'spicy'},'Spicy')
+                ),
+                e('div',{className:'mi-name'},item.n),
+                e('div',{className:'mi-desc'},item.d),
+                e('div',{className:'mi-price'},'₹',item.p),
+                cart[item.id]
+                  ?e('div',{className:'qrow'},
+                      e('button',{className:'qb',onClick:()=>remItem(item)},'−'),
+                      e('span',{className:'qn'},cart[item.id]),
+                      e('button',{className:'qb p',onClick:()=>addItem(item,selR.id)},'+')
+                    )
+                  :e('button',{className:'qadd',onClick:()=>addItem(item,selR.id)},'+ Add')
+              ),
+              e('div',{className:'mi-img'},item.em)
+            ))
+          )),
+          cnt>0&&e('div',{className:'fbar',onClick:()=>setShowCP(p=>!p)},
+            e('div',{className:'fbar-l'},
+              e('div',{className:'fbar-ct'},cnt),
+              e('div',null,
+                e('div',{className:'fbar-label'},'View Cart'),
+                e('div',{style:{fontSize:11,color:'var(--t3)'}},cRest?.name)
+              )
+            ),
+            e('div',{className:'fbar-r'},'₹',total,' ',e(IC.arrow,{s:14}))
+          )
+        ),
+        showCP&&e('div',{className:'cart-panel'},
+          e('div',{className:'cp-head'},
+            e('div',{className:'cp-title'},'Your Cart'),
+            e('div',{className:'cp-rest'},cRest?.name||'—')
+          ),
+          (() => {
+            const cRest2=RESTS.find(r=>r.id===cRid);
+            const all=cRest2?Object.values(cRest2.menu).flat():[];
+            const items=all.filter(i=>cart[i.id]);
+            if(!items.length)return e('div',{className:'cp-empty'},e('div',{className:'cp-em-icon'},'🛒'),e('div',null,'Your cart is empty'));
+            return e('div',null,
+              e('div',{className:'cp-items'},items.map(item=>e('div',{className:'ci',key:item.id},
+                e('div',{className:'ci-em'},item.em),
+                e('div',{className:'ci-name'},item.n),
+                e('div',{className:'qrow',style:{margin:0,transform:'scale(.88)',transformOrigin:'right'}},
+                  e('button',{className:'qb',onClick:()=>remItem(item)},'−'),
+                  e('span',{className:'qn'},cart[item.id]),
+                  e('button',{className:'qb p',onClick:()=>addItem(item,cRid)},'+')
+                ),
+                e('div',{className:'ci-price'},'₹',item.p*cart[item.id])
+              ))),
+              e('div',{className:'cp-foot'},
+                e('div',{className:'cp-coup'},
+                  e('input',{placeholder:'Coupon (try FOOD50)',value:coup,onChange:ev=>setCoup(ev.target.value)}),
+                  e('button',{className:'cp-coup-btn',onClick:()=>{
+                    if(coup.trim().toUpperCase()==='FOOD50'){setCoupon(true);toast_('Coupon applied!')}
+                    else toast_('Invalid coupon');
+                  }},coupon?'✓':' Apply')
+                ),
+                e('div',{className:'bline'},e('span',null,'Item total'),e('span',null,'₹',total)),
+                e('div',{className:'bline'},e('span',null,'Delivery'),del===0?e('span',{className:'free'},'FREE'):e('span',null,'₹',del)),
+                e('div',{className:'bline'},e('span',null,'GST (5%)'),e('span',null,'₹',tax)),
+                coupon&&e('div',{className:'bline'},e('span',null,'Coupon disc.'),e('span',{className:'disc'},'−₹',disc)),
+                e('div',{className:'bline bold'},e('span',null,'To Pay'),e('span',null,'₹',grand)),
+                e('button',{className:'pay-btn',onClick:()=>setView('success')},
+                  e('span',null,'Place Order'),
+                  e('span',null,'₹',grand,' ',e(IC.arrow,{s:14}))
+                )
+              )
+            );
+          })()
+        )
+      ),
+      toast&&e('div',{className:'toast-host'},e('div',{className:'toast'},e('div',{className:'tg-dot'}),toast))
+    );
+  }
+
+  return e('div',null,
+    e('div',{className:'nav'},
+      e('div',{className:'nav-w'},
+        e('div',{className:'logo'},e('b',null,'zoma'),'to'),
+        e('button',{className:'nav-loc'},
+          e('div',{className:'loc-dot'}),
+          e('span',null,'Sector 62, Noida'),
+          e(IC.chev,{s:11})
+        ),
+        e('div',{className:'nav-sb'},
+          e(IC.search,{s:15}),
+          e('input',{placeholder:'Search restaurants or dishes…',value:q,onChange:ev=>setQ(ev.target.value)})
+        ),
+        e('div',{className:'nav-end'},
+          e('button',{className:'nbtn nbtn-ghost'},e(IC.user,{s:14}),' Sign in'),
+          cnt>0&&e('button',{className:'nbtn nbtn-red'},e(IC.bag,{s:14}),' Cart ',e('span',{className:'cbadge'},cnt))
+        )
+      )
+    ),
+    e('div',{className:'hero'},
+      e('div',{className:'hero-w'},
+        e('div',null,
+          e('div',{className:'hero-chip'},e('div',{className:'hero-chip-dot'}),'Order in 30 min or less'),
+          e('h1',null,'Cravings delivered,',e('br'),'right to your ',e('span',null,'door.')),
+          e('p',{className:'hero-sub'},'Discover 500+ restaurants near you — from hidden gems to award-winning kitchens.'),
+          e('div',{className:'hero-form'},
+            e('div',{className:'hero-form-loc'},e(IC.pin,{s:15}),e('span',null,'Noida')),
+            e('input',{placeholder:'Search "Biryani", "Sushi", "Keto"…',value:q,onChange:ev=>setQ(ev.target.value)}),
+            e('button',{className:'hero-form-btn'},e(IC.search,{s:14}),' Search')
+          ),
+          e('div',{className:'hero-nums'},
+            [{v:'500+',l:'Restaurants'},{v:'12 min',l:'Fastest Delivery'},{v:'4.6',l:'Avg Rating'}]
+            .map(n=>e('div',{className:'hero-num',key:n.l},e('strong',null,n.v),e('span',null,n.l)))
+          )
+        ),
+        e('div',{className:'hero-cards'},
+          RESTS.slice(0,4).map(r=>e('div',{className:'hc',key:r.id,onClick:()=>{setSelR(r);setMcat(0);setView('rest')}},
+            e('div',{className:'hc-icon'},r.em),
+            e('div',{style:{flex:1,minWidth:0}},
+              e('div',{className:'hc-name'},r.name),
+              e('div',{className:'hc-sub'},r.t,' min · ₹',r.c)
+            ),
+            e('div',{className:'hc-rating'},e(IC.star,{s:10}),' ',r.r)
+          ))
+        )
+      )
+    ),
+    e('div',{className:'offers-bar'},
+      e('div',{className:'offers-scroll'},
+        OFFERS.map(o=>e('div',{className:'oc',key:o.c},
+          e('div',{className:`oc-icon ${o.cl}`},o.em),
+          e('div',null,e('div',{className:'oc-title'},o.t),e('div',{className:'oc-sub'},o.s)),
+          e('div',{className:'oc-code'},o.c)
+        ))
+      )
+    ),
+    e('div',{className:'sec'},
+      e('div',{className:'sec-hd'},e('div',{className:'sec-title'},"What's on your ",e('em',null,'mind?'))),
+      e('div',{className:'cats'},
+        CATS.map(c=>e('button',{key:c.id,className:`cat ${cat===c.id?'on':''}`,onClick:()=>setCat(c.id)},
+          e('span',{className:'cat-em'},c.em),c.l
+        ))
+      ),
+      e('div',{className:'frow'},
+        e('span',{className:'flabel'},'Filter'),
+        [{k:'top',l:'⭐ Top Rated'},{k:'veg',l:'🌿 Veg Only'},{k:'fast',l:'⚡ Fast'},{k:'offer',l:'🏷️ Offers'}]
+        .map(f=>e('button',{key:f.k,className:`fbtn ${fil[f.k]?'on':''}`,onClick:()=>setFil(p=>({...p,[f.k]:!p[f.k]}))},f.l)),
+        e('select',{className:'fsort',value:sort,onChange:ev=>setSort(ev.target.value)},
+          e('option',{value:'rel'},'Sort: Relevance'),
+          e('option',{value:'rating'},'Sort: Rating'),
+          e('option',{value:'fast'},'Sort: Fastest'),
+          e('option',{value:'cost'},'Sort: Cost ↑'),
+        )
+      )
+    ),
+    e('div',{className:'sec'},
+      e('div',{className:'sec-hd'},
+        e('div',{className:'sec-title'},filt.length,' Restaurant',filt.length!==1?'s':'',' ',e('em',null,'near you')),
+        filt.length>0&&e('div',{className:'sec-more'},'See all →')
+      ),
+      filt.length===0
+        ?e('div',{className:'empty'},e('div',{className:'empty-icon'},'🍽️'),e('div',{className:'empty-h'},'No restaurants found'),e('div',{className:'empty-p'},'Adjust your filters or search'))
+        :e('div',{className:'rgrid'},
+          filt.map(r=>e(RCard,{r,key:r.id,fav:favs[r.id],onFav:ev=>togFav(r.id,ev),
+            onClick:()=>{setSelR(r);setMcat(0);setShowCP(true);setView('rest')}}))
+        )
+    ),
+    toast&&e('div',{className:'toast-host'},e('div',{className:'toast'},e('div',{className:'tg-dot'}),toast))
+  );
+}
+
+function RCard({r,fav,onFav,onClick}){
+  return e('div',{className:'rc',onClick},
+    e('div',{className:'rc-img'},
+      e('div',{className:'rc-em'},r.em),
+      e('div',{className:'rc-tl'},
+        r.feat&&e('div',{className:'rbadge feat'},'★ Featured'),
+        r.veg&&e('div',{className:'rbadge veg'},'Pure Veg')
+      ),
+      e('button',{className:`rc-heart ${fav?'on':''}`,onClick:onFav},e(IC.heart,{s:14,f:fav})),
+      r.offer&&e('div',{className:'rc-offer'},e(IC.tag,{s:11}),' ',r.offer)
+    ),
+    e('div',{className:'rc-body'},
+      e('div',{className:'rc-name'},r.name),
+      e('div',{className:'rc-cuis'},r.cuis),
+      e('div',{className:'rc-meta'},
+        e('div',{className:'rc-mi'},e('div',{className:'rc-mv g'},e(IC.star,{s:11}),' ',r.r),e('div',{className:'rc-ml'},'Rating')),
+        e('div',{className:'rc-mi'},e('div',{className:'rc-mv'},r.t,' min'),e('div',{className:'rc-ml'},'Delivery')),
+        e('div',{className:'rc-mi'},e('div',{className:'rc-mv'},'₹',r.c),e('div',{className:'rc-ml'},'For two'))
+      )
+    )
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('app')).render(e(App));
+</script>
